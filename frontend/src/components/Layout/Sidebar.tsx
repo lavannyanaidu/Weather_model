@@ -79,14 +79,14 @@ export const Sidebar: React.FC = () => {
                   to={item.path}
                   end={item.path === '/'}
                   className={({ isActive }) =>
-                    `flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all font-sans ${
+                    `flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 sidebar-item-hover font-sans ${
                       isActive
                         ? 'bg-blue-50 text-blue-700 border border-blue-200 font-semibold shadow-2xs'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent'
                     }`
                   }
                 >
-                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <Icon className="w-4 h-4 flex-shrink-0 sidebar-icon transition-transform duration-150" />
                   <span>{item.label}</span>
                 </NavLink>
               );
@@ -107,14 +107,14 @@ export const Sidebar: React.FC = () => {
                   key={item.path}
                   to={item.path}
                   className={({ isActive }) =>
-                    `flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all font-sans ${
+                    `flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 sidebar-item-hover font-sans ${
                       isActive
                         ? 'bg-blue-50 text-blue-700 border border-blue-200 font-semibold shadow-2xs'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent'
                     }`
                   }
                 >
-                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <Icon className="w-4 h-4 flex-shrink-0 sidebar-icon transition-transform duration-150" />
                   <span>{item.label}</span>
                 </NavLink>
               );
@@ -135,14 +135,14 @@ export const Sidebar: React.FC = () => {
                   key={item.path}
                   to={item.path}
                   className={({ isActive }) =>
-                    `flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all font-sans ${
+                    `flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 sidebar-item-hover font-sans ${
                       isActive
                         ? 'bg-blue-50 text-blue-700 border border-blue-200 font-semibold shadow-2xs'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent'
                     }`
                   }
                 >
-                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <Icon className="w-4 h-4 flex-shrink-0 sidebar-icon transition-transform duration-150" />
                   <span>{item.label}</span>
                 </NavLink>
               );
@@ -163,14 +163,14 @@ export const Sidebar: React.FC = () => {
                   key={item.path}
                   to={item.path}
                   className={({ isActive }) =>
-                    `flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all font-sans ${
+                    `flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all duration-150 sidebar-item-hover font-sans ${
                       isActive
                         ? 'bg-blue-50 text-blue-700 border border-blue-200 font-semibold shadow-2xs'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent'
                     }`
                   }
                 >
-                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <Icon className="w-4 h-4 flex-shrink-0 sidebar-icon transition-transform duration-150" />
                   <span>{item.label}</span>
                 </NavLink>
               );
@@ -186,7 +186,7 @@ export const Sidebar: React.FC = () => {
             <span className="text-[10px] uppercase font-bold text-slate-500 flex items-center gap-1 font-sans">
               <Activity className="w-3 h-3 text-emerald-600" /> SYSTEM STATUS
             </span>
-            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 subtle-pulse-dot"></span>
           </div>
           <div className="text-[11px] text-slate-700 flex items-center justify-between font-sans">
             <span>Ingestion & AI:</span>
@@ -201,3 +201,4 @@ export const Sidebar: React.FC = () => {
     </aside>
   );
 };
+

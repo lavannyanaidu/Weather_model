@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import type { WeatherEvent } from '../../types';
 import { SeverityBadge } from '../Badges/StatusBadge';
-import { MapPin } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
 
 // Generates thematic SVG map pins with custom weather symbols
 const createCustomIcon = (severity: string, eventType: string) => {
@@ -15,6 +15,7 @@ const createCustomIcon = (severity: string, eventType: string) => {
   };
 
   const color = colorMap[severity] || '#2563eb';
+  const isCritical = severity === 'Critical';
 
   // Weather Symbol SVG Paths
   let symbolSvg = `<circle cx="15" cy="14" r="3" fill="${color}"/>`;
@@ -46,7 +47,7 @@ const createCustomIcon = (severity: string, eventType: string) => {
 
   return L.divIcon({
     html: svg,
-    className: 'custom-map-marker',
+    className: `custom-map-marker ${isCritical ? 'marker-pulse-critical rounded-full' : ''}`,
     iconSize: [34, 46],
     iconAnchor: [17, 46],
     popupAnchor: [0, -42]
@@ -77,12 +78,12 @@ export const IndiaMap: React.FC<IndiaMapProps> = ({
   });
 
   return (
-    <div className="relative w-full h-full rounded-lg overflow-hidden border border-stone-200 shadow-xs" style={{ height }}>
+    <div className="relative w-full h-full rounded-lg overflow-hidden border border-stone-200 shadow-2xs" style={{ height }}>
       {/* Map Legend Overlay */}
-      <div className="absolute top-3 left-3 z-[1000] bg-white/95 border border-stone-200 backdrop-blur-xs rounded-lg p-2.5 shadow-md text-xs space-y-1.5 animate-fade-in font-sans">
-        <div className="font-bold text-stone-800 uppercase text-[10px] tracking-wider mb-1 font-mono">Severity Legend</div>
+      <div className="absolute top-3 left-3 z-[1000] bg-white/95 border border-stone-200 backdrop-blur-xs rounded-lg p-2.5 shadow-md text-xs space-y-1.5 animate-fade-in-up font-sans">
+        <div className="font-bold text-stone-800 uppercase text-[10px] tracking-wider mb-1 font-sans">Severity Legend</div>
         <div className="flex items-center gap-2 text-stone-700 font-medium">
-          <span className="w-2.5 h-2.5 rounded-full bg-red-600 pulse-glow-red" /> <span className="text-red-700 font-bold">Critical</span>
+          <span className="w-2.5 h-2.5 rounded-full bg-red-600 marker-pulse-critical" /> <span className="text-red-700 font-bold">Critical</span>
         </div>
         <div className="flex items-center gap-2 text-stone-700 font-medium">
           <span className="w-2.5 h-2.5 rounded-full bg-orange-600" /> <span className="text-orange-700 font-bold">High Risk</span>
@@ -123,21 +124,21 @@ export const IndiaMap: React.FC<IndiaMapProps> = ({
               <Popup>
                 <div className="p-1 max-w-xs font-sans text-stone-800">
                   <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="font-mono text-[10px] text-amber-800 font-bold">{evt.id}</span>
+                    <span className="font-mono text-[10px] text-blue-700 font-bold">{evt.id}</span>
                     <SeverityBadge severity={evt.severity} />
                   </div>
                   <h4 className="text-sm font-bold text-stone-900 leading-tight mb-1">{evt.title}</h4>
-                  <div className="text-xs text-stone-600 flex items-center gap-1 mb-2">
-                    <MapPin className="w-3.5 h-3.5 text-stone-500" /> {evt.city}, {evt.state}
+                  <div className="text-xs text-stone-600 flex items-center gap-1 mb-2 font-medium">
+                    <MapPin className="w-3.5 h-3.5 text-stone-500 flex-shrink-0" /> {evt.city}, {evt.state}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-1.5 text-[11px] bg-stone-50 p-2 rounded-md border border-stone-200 font-mono mb-2">
+                  <div className="grid grid-cols-2 gap-1.5 text-[11px] bg-stone-50 p-2 rounded-md border border-stone-200 font-sans mb-2">
                     <div>
-                      <span className="text-stone-500">Confidence:</span>
+                      <span className="text-stone-500 font-medium">Confidence:</span>
                       <span className="text-emerald-700 font-bold ml-1">{evt.confidence}%</span>
                     </div>
                     <div>
-                      <span className="text-stone-500">Reports:</span>
+                      <span className="text-stone-500 font-medium">Observations:</span>
                       <span className="text-stone-900 font-bold ml-1">{totalReportsCount}</span>
                     </div>
                   </div>
@@ -145,9 +146,10 @@ export const IndiaMap: React.FC<IndiaMapProps> = ({
                   {onSelectEvent && (
                     <button
                       onClick={() => onSelectEvent(evt)}
-                      className="w-full text-center py-1.5 px-2 text-xs font-semibold bg-stone-900 hover:bg-stone-800 text-white rounded-md transition-colors shadow-2xs"
+                      className="w-full text-center py-1.5 px-2.5 text-xs font-semibold bg-stone-900 hover:bg-stone-800 text-white rounded-md transition-all shadow-2xs flex items-center justify-center gap-1 font-sans"
                     >
-                      View Event Intelligence →
+                      <span>VIEW EVENT INTELLIGENCE</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
                     </button>
                   )}
                 </div>
@@ -159,3 +161,4 @@ export const IndiaMap: React.FC<IndiaMapProps> = ({
     </div>
   );
 };
+

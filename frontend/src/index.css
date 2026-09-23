@@ -58,32 +58,113 @@ aside, header {
 }
 
 /* Custom Animations & Micro-interactions */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(20px); }
+  from { opacity: 0; transform: translateX(16px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes pulseGlow {
-  0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
-  70% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+@keyframes subtlePulseGreen {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.35s ease-out forwards;
+@keyframes subtleMarkerPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+@keyframes bellChime {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes metricFlash {
+  0% {
+    background-color: rgba(37, 99, 235, 0.15);
+    color: #1d4ed8;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Animation Utility Classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.35s ease-out forwards;
 }
 
 .animate-slide-right {
   animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.pulse-glow-red {
-  animation: pulseGlow 2s infinite;
+.animate-stagger-1 { animation-delay: 50ms; }
+.animate-stagger-2 { animation-delay: 100ms; }
+.animate-stagger-3 { animation-delay: 150ms; }
+.animate-stagger-4 { animation-delay: 200ms; }
+.animate-stagger-5 { animation-delay: 250ms; }
+
+.subtle-pulse-dot {
+  animation: subtlePulseGreen 2.2s infinite ease-in-out;
+}
+
+.marker-pulse-critical {
+  animation: subtleMarkerPulse 2.2s infinite ease-in-out;
+}
+
+.bell-ring-once {
+  animation: bellChime 0.4s ease-in-out 1;
+}
+
+.metric-updated-flash {
+  animation: metricFlash 0.6s ease-out 1;
+  border-radius: 4px;
+}
+
+/* Micro-interaction Hover Rules */
+.card-hover-subtle {
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+.card-hover-subtle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px -2px rgba(28, 25, 23, 0.08);
+  border-color: #d6cebf;
+}
+
+.sidebar-item-hover {
+  transition: background-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+.sidebar-item-hover:hover .sidebar-icon {
+  transform: translateX(1.5px);
 }
 
 /* Scrollbars */
@@ -126,6 +207,23 @@ aside, header {
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 .custom-map-marker:hover {
-  transform: scale(1.18) translateY(-4px);
+  transform: scale(1.15) translateY(-3px);
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
 }
+
+/* Accessibility: Respect Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-fade-in-up, .animate-slide-right, .subtle-pulse-dot, .marker-pulse-critical, .bell-ring-once, .metric-updated-flash {
+    animation: none !important;
+  }
+  .card-hover-subtle:hover {
+    transform: none !important;
+  }
+}
+

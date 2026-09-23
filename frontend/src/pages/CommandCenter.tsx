@@ -15,7 +15,8 @@ import {
   RefreshCw,
   ExternalLink,
   MapPin,
-  Radio
+  Radio,
+  Sparkles
 } from 'lucide-react';
 
 export const CommandCenter: React.FC = () => {
@@ -29,49 +30,72 @@ export const CommandCenter: React.FC = () => {
   };
 
   return (
-    <div className="space-y-4 max-w-[1800px] mx-auto font-sans p-4">
+    <div className="space-y-4 max-w-[1800px] mx-auto font-sans p-4 animate-fade-in-up">
+      {/* Simulation New Event Detection Notification Banner */}
+      {isSimulating && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-2.5 px-4 flex items-center justify-between shadow-2xs font-sans animate-fade-in-up">
+          <div className="flex items-center gap-2 text-xs font-semibold text-blue-900 font-sans">
+            <Sparkles className="w-4 h-4 text-blue-600 animate-spin" />
+            <span>AI EVENT CLUSTERING: Correlating multi-source weather observations across Indian sub-regions...</span>
+          </div>
+          <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-100 px-2 py-0.5 rounded border border-blue-200">
+            SIMULATION IN PROGRESS
+          </span>
+        </div>
+      )}
+
       {/* KPI Header Bar */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-        <KpiCard
-          title="ACTIVE WEATHER EVENTS"
-          value={kpis.activeEvents || 18}
-          label="Monitored nationwide"
-          trend="+2 detected this hour"
-          icon={Zap}
-          accentColor="red"
-        />
-        <KpiCard
-          title="OBSERVATIONS PROCESSED"
-          value={kpis.reportsProcessed || 2413920}
-          label="Multi-source intelligence"
-          trend="+18/min"
-          icon={FileText}
-          accentColor="cyan"
-        />
-        <KpiCard
-          title="VERIFIED OBSERVATIONS"
-          value={kpis.verifiedReports || 2145087}
-          label="Trusted & geo-matched"
-          trend="86.3% corroborated"
-          icon={ShieldCheck}
-          accentColor="emerald"
-        />
-        <KpiCard
-          title="FLAGGED OBSERVATIONS"
-          value={kpis.suspiciousReports || 68013}
-          label="AI triage queue"
-          trend="2.8% requiring review"
-          icon={AlertTriangle}
-          accentColor="amber"
-        />
-        <KpiCard
-          title="REDUNDANT RECORDS REMOVED"
-          value={kpis.duplicatesRemoved || 318015}
-          label="Repeated observations filtered"
-          trend="10.7% filtered"
-          icon={CopyX}
-          accentColor="purple"
-        />
+        <div className="animate-fade-in-up animate-stagger-1">
+          <KpiCard
+            title="ACTIVE WEATHER EVENTS"
+            value={kpis.activeEvents || 18}
+            label="Monitored nationwide"
+            trend="+2 detected this hour"
+            icon={Zap}
+            accentColor="red"
+          />
+        </div>
+        <div className="animate-fade-in-up animate-stagger-2">
+          <KpiCard
+            title="OBSERVATIONS PROCESSED"
+            value={kpis.reportsProcessed || 2413920}
+            label="Multi-source intelligence"
+            trend="+18/min"
+            icon={FileText}
+            accentColor="cyan"
+          />
+        </div>
+        <div className="animate-fade-in-up animate-stagger-3">
+          <KpiCard
+            title="VERIFIED OBSERVATIONS"
+            value={kpis.verifiedReports || 2145087}
+            label="Trusted & geo-matched"
+            trend="86.3% corroborated"
+            icon={ShieldCheck}
+            accentColor="emerald"
+          />
+        </div>
+        <div className="animate-fade-in-up animate-stagger-4">
+          <KpiCard
+            title="FLAGGED OBSERVATIONS"
+            value={kpis.suspiciousReports || 68013}
+            label="AI triage queue"
+            trend="2.8% requiring review"
+            icon={AlertTriangle}
+            accentColor="amber"
+          />
+        </div>
+        <div className="animate-fade-in-up animate-stagger-5">
+          <KpiCard
+            title="REDUNDANT RECORDS REMOVED"
+            value={kpis.duplicatesRemoved || 318015}
+            label="Repeated observations filtered"
+            trend="10.7% filtered"
+            icon={CopyX}
+            accentColor="purple"
+          />
+        </div>
       </div>
 
       {/* Real-time Processing Pipeline Visualizer */}
@@ -80,7 +104,7 @@ export const CommandCenter: React.FC = () => {
       {/* Main Grid: Map + Active Events List */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-[540px]">
         {/* Map Area */}
-        <div className="lg:col-span-7 bg-white border border-slate-200 rounded-lg p-3.5 flex flex-col h-full shadow-xs">
+        <div className="lg:col-span-7 bg-white border border-slate-200 rounded-lg p-3.5 flex flex-col h-full shadow-2xs card-hover-subtle">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 font-sans">
               <MapPin className="w-4 h-4 text-blue-600" /> NATIONAL WEATHER EVENT MAP (INDIA)
@@ -95,7 +119,7 @@ export const CommandCenter: React.FC = () => {
         </div>
 
         {/* Active Weather Events Panel */}
-        <div className="lg:col-span-5 bg-white border border-slate-200 rounded-lg p-3.5 flex flex-col h-full overflow-hidden shadow-xs">
+        <div className="lg:col-span-5 bg-white border border-slate-200 rounded-lg p-3.5 flex flex-col h-full overflow-hidden shadow-2xs card-hover-subtle">
           <div className="flex items-center justify-between mb-3 border-b border-slate-200 pb-2">
             <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 font-sans">
               <Zap className="w-4 h-4 text-amber-500" /> ACTIVE WEATHER EVENTS
@@ -104,53 +128,60 @@ export const CommandCenter: React.FC = () => {
           </div>
 
           <div className="flex-1 overflow-y-auto space-y-2 pr-1">
-            {activeEvents.map((evt) => (
-              <div
-                key={evt.id}
-                onClick={() => handleSelectEvent(evt)}
-                className="p-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-md transition-all cursor-pointer group shadow-2xs font-sans"
-              >
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold text-blue-700">{evt.id}</span>
-                    <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                      {evt.title}
-                    </h4>
-                  </div>
-                  <SeverityBadge severity={evt.severity} />
-                </div>
-
-                <div className="text-[11px] text-slate-500 flex items-center gap-2 mb-2 font-medium">
-                  <span>📍 {evt.city}, {evt.state}</span>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2 text-[11px] bg-slate-50 p-2 rounded-md border border-slate-200 font-sans">
-                  <div>
-                    <span className="text-slate-500">Confidence:</span>{' '}
-                    <span className="text-emerald-700 font-bold">{evt.confidence}%</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-500">Observations:</span>{' '}
-                    <span className="text-slate-900 font-bold">{evt.totalReports || evt.total_reports || 0}</span>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-slate-500">Updated:</span>{' '}
-                    <span className="text-slate-600">
-                      {new Date(evt.lastUpdated || evt.last_updated || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </span>
-                  </div>
-                </div>
+            {activeEvents.length === 0 ? (
+              <div className="p-8 text-center text-slate-500 font-sans">
+                <p className="text-xs font-semibold text-slate-700">No active weather events</p>
+                <p className="text-[11px] mt-1 text-slate-400">Monitoring national observation stream for emerging events.</p>
               </div>
-            ))}
+            ) : (
+              activeEvents.map((evt) => (
+                <div
+                  key={evt.id}
+                  onClick={() => handleSelectEvent(evt)}
+                  className="p-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-md transition-all duration-150 cursor-pointer group shadow-2xs card-hover-subtle font-sans"
+                >
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono font-bold text-blue-700">{evt.id}</span>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                        {evt.title}
+                      </h4>
+                    </div>
+                    <SeverityBadge severity={evt.severity} />
+                  </div>
+
+                  <div className="text-[11px] text-slate-500 flex items-center gap-2 mb-2 font-medium">
+                    <span>📍 {evt.city}, {evt.state}</span>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 text-[11px] bg-slate-50 p-2 rounded-md border border-slate-200 font-sans">
+                    <div>
+                      <span className="text-slate-500">Confidence:</span>{' '}
+                      <span className="text-emerald-700 font-bold">{evt.confidence}%</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-500">Observations:</span>{' '}
+                      <span className="text-slate-900 font-bold">{evt.totalReports || evt.total_reports || 0}</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-slate-500">Updated:</span>{' '}
+                      <span className="text-slate-600">
+                        {new Date(evt.lastUpdated || evt.last_updated || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
 
       {/* Bottom Section: Incoming Weather Observations Stream */}
-      <div className="bg-white border border-slate-200 rounded-lg p-3.5 shadow-xs font-sans">
+      <div className="bg-white border border-slate-200 rounded-lg p-3.5 shadow-2xs font-sans card-hover-subtle">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 border-b border-slate-200 pb-2">
           <div className="flex items-center gap-2">
-            <Radio className="w-4 h-4 text-emerald-600 animate-pulse" />
+            <Radio className="w-4 h-4 text-emerald-600 subtle-pulse-dot" />
             <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider font-sans">
               INCOMING WEATHER OBSERVATIONS (Multi-Source Stream)
             </h3>
@@ -158,10 +189,10 @@ export const CommandCenter: React.FC = () => {
           <button
             onClick={simulateLiveReport}
             disabled={isSimulating}
-            className="flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-md bg-slate-900 hover:bg-slate-800 text-white transition-colors shadow-xs"
+            className="flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-md bg-slate-900 hover:bg-slate-800 text-white transition-all duration-150 shadow-2xs font-sans"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isSimulating ? 'animate-spin' : ''}`} />
-            SIMULATE LIVE OBSERVATION
+            <span>SIMULATE LIVE OBSERVATION</span>
           </button>
         </div>
 
@@ -225,9 +256,10 @@ export const CommandCenter: React.FC = () => {
                     <td className="py-2.5 px-3 text-right">
                       <button
                         onClick={() => navigate(`/reports/${rep.id}`)}
-                        className="text-[11px] font-medium text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1 justify-end ml-auto"
+                        className="text-[11px] font-medium text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1 justify-end ml-auto font-sans"
                       >
-                        Inspect Evidence <ExternalLink className="w-3 h-3" />
+                        <span>VIEW EVIDENCE</span>
+                        <ExternalLink className="w-3 h-3" />
                       </button>
                     </td>
                   </tr>
@@ -240,3 +272,4 @@ export const CommandCenter: React.FC = () => {
     </div>
   );
 };
+
