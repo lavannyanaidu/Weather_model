@@ -1,0 +1,36 @@
+environment: development
+debug: true
+api_prefix: /api/v1
+server:
+  host: "0.0.0.0"
+  port: 8000
+
+database:
+  url: "sqlite:///./weather_intelligence.db"
+  pool_size: 10
+
+redis:
+  host: "localhost"
+  port: 6379
+
+kafka:
+  bootstrap_servers: "localhost:9092"
+  topics:
+    raw: "observations.raw"
+    normalized: "observations.normalized"
+    features: "observations.features"
+    events: "weather.events"
+    alerts: "weather.alerts"
+
+storage:
+  type: "local"
+  bucket_name: "weather-observations"
+  local_dir: "./storage_data"
+
+ai_models:
+  text_model: "ModernBERT-Weather-v2"
+  image_model: "SigLIP 2 Zero-Shot"
+  video_model: "VideoMAE V2"
+  ocr_model: "PaddleOCR-VL"
+  fusion_engine: "WeatherFusion-v4"
+  device: "cpu"

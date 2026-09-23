@@ -1,0 +1,35 @@
+environment: staging
+debug: false
+api_prefix: /api/v1
+server:
+  host: "0.0.0.0"
+  port: 8000
+
+database:
+  url: "postgresql://weather_user:weather_password@postgres:5432/weather_staging_db"
+  pool_size: 20
+
+redis:
+  host: "redis"
+  port: 6379
+
+kafka:
+  bootstrap_servers: "kafka:9092"
+  topics:
+    raw: "observations.raw"
+    normalized: "observations.normalized"
+    features: "observations.features"
+    events: "weather.events"
+    alerts: "weather.alerts"
+
+storage:
+  type: "s3"
+  bucket_name: "weather-observations-staging"
+
+ai_models:
+  text_model: "ModernBERT-Weather-v2"
+  image_model: "SigLIP 2 Zero-Shot"
+  video_model: "VideoMAE V2"
+  ocr_model: "PaddleOCR-VL"
+  fusion_engine: "WeatherFusion-v4"
+  device: "cuda"

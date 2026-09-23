@@ -1,0 +1,35 @@
+environment: production
+debug: false
+api_prefix: /api/v1
+server:
+  host: "0.0.0.0"
+  port: 8000
+
+database:
+  url: "postgresql://weather_admin:secure_pwd@pg-cluster.imd.gov.in:5432/weather_prod_db"
+  pool_size: 50
+
+redis:
+  host: "redis-cluster.imd.gov.in"
+  port: 6379
+
+kafka:
+  bootstrap_servers: "kafka-cluster.imd.gov.in:9092"
+  topics:
+    raw: "observations.raw"
+    normalized: "observations.normalized"
+    features: "observations.features"
+    events: "weather.events"
+    alerts: "weather.alerts"
+
+storage:
+  type: "s3"
+  bucket_name: "weather-observations-prod"
+
+ai_models:
+  text_model: "ModernBERT-Weather-v2"
+  image_model: "SigLIP 2 Zero-Shot"
+  video_model: "VideoMAE V2"
+  ocr_model: "PaddleOCR-VL"
+  fusion_engine: "WeatherFusion-v4"
+  device: "cuda"

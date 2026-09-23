@@ -1,0 +1,131 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+:root {
+  color-scheme: light;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fbf9f5; /* Warm Cream Background */
+  color: #1c1917; /* Stone 900 */
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Cream Theme Overrides & Component Defaults */
+.bg-slate-950, .bg-slate-900 {
+  background-color: #ffffff !important;
+}
+
+.bg-slate-900\/90, .bg-slate-900\/95 {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+}
+
+.bg-slate-800, .bg-slate-800\/60, .bg-slate-800\/80, .bg-slate-100 {
+  background-color: #f5f2eb !important; /* Soft Cream Tint */
+}
+
+.bg-slate-50 {
+  background-color: #fbf9f5 !important;
+}
+
+.border-slate-800, .border-slate-800\/90, .border-slate-800\/80, .border-slate-700, .border-slate-200 {
+  border-color: #e8e3d9 !important; /* Warm Cream Border */
+}
+
+.text-slate-100, .text-slate-200, .text-slate-900 {
+  color: #1c1917 !important; /* Deep Stone Dark */
+}
+
+.text-slate-300, .text-slate-800 {
+  color: #292524 !important;
+}
+
+.text-slate-400, .text-slate-500 {
+  color: #57534e !important; /* Stone 600 */
+}
+
+/* Header & Sidebar Cream Styling */
+aside, header {
+  background-color: #ffffff !important;
+  border-color: #e8e3d9 !important;
+}
+
+/* Custom Animations & Micro-interactions */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s ease-out forwards;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pulse-glow-red {
+  animation: pulseGlow 2s infinite;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f2eb;
+}
+::-webkit-scrollbar-thumb {
+  background: #d6cebf;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b8ac97;
+}
+
+/* Leaflet Map Popup & Map Container */
+.leaflet-container {
+  background-color: #f3efe6 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background-color: #ffffff !important;
+  color: #1c1917 !important;
+  border: 1px solid #e8e3d9;
+  box-shadow: 0 10px 25px -5px rgba(28, 25, 23, 0.12);
+  border-radius: 10px;
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* Weather Icon Animations on Map */
+.custom-map-marker {
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.custom-map-marker:hover {
+  transform: scale(1.18) translateY(-4px);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+}
