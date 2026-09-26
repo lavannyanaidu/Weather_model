@@ -1,12 +1,11 @@
 export type SeverityLevel = 'Critical' | 'High' | 'Warning' | 'Normal';
 export type VerificationStatus = 'Verified' | 'Suspicious' | 'Duplicate' | 'Pending';
 export type EventCategory = 
-  | 'Rainfall'
-  | 'Heavy Rain'
-  | 'Thunderstorm'
   | 'Flooding'
+  | 'Heavy Rain'
+  | 'Rainfall'
   | 'Heatwave'
-  | 'Fog'
+  | 'Thunderstorm'
   | 'Dust Storm'
   | 'Strong Winds'
   | 'Cyclone'
